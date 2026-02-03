@@ -9,12 +9,13 @@ const supabase = createClient(
 
 const createAdmin = async () => {
   try {
+    // Get admin credentials from environment variables
     const adminData = {
-      name: "Gaurav Kumar",
-      email: "gkumaryadav526@gmail.com",
-      password: "gaurav@hack",
-      phone_number: "9999999999",
-      role: "superadmin",
+      name: process.env.ADMIN_NAME,
+      email: process.env.ADMIN_EMAIL,
+      password: process.env.ADMIN_PASSWORD,
+      phone_number: process.env.ADMIN_PHONE,
+      role: process.env.ADMIN_ROLE,
     };
 
     // Check if admin exists
@@ -27,7 +28,6 @@ const createAdmin = async () => {
     if (existing) {
       console.log("⚠️  Admin already exists!");
       console.log("📧 Email:", adminData.email);
-      console.log("🔑 Password: gaurav@hack");
       process.exit(0);
     }
 
