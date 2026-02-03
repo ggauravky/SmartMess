@@ -18,43 +18,10 @@ process.on('unhandledRejection', (err) => {
 const app = express();
 
 // Step 3: Middleware - These run before our routes
-// CORS Configuration - Allow all Vercel deployments and localhost
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5173',
-  process.env.FRONTEND_URL
-].filter(Boolean);
-
+// CORS Configuration - Allow ALL origins for simplicity
 app.use(
   cors({
-    origin: function(origin, callback) {
-      // Allow requests with no origin (mobile apps, curl, Postman, etc)
-      if (!origin) return callback(null, true);
-      
-      // Allow all Vercel preview/production deployments
-      if (origin.endsWith('.vercel.app')) {
-        return callback(null, true);
-      }
-      
-      // Allow localhost for development
-      if (origin.includes('localhost')) {
-        return callback(null, true);
-      }
-      
-      // Allow explicitly configured frontend URL
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      
-      // In development, allow all
-      if (process.env.NODE_ENV !== 'production') {
-        return callback(null, true);
-      }
-      
-      // Log blocked origins for debugging
-      console.log('CORS blocked origin:', origin);
-      callback(null, true); // Allow anyway to prevent blocking - you can change to false if needed
-    },
+    origin: true, // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
