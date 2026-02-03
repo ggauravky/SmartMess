@@ -1,0 +1,49 @@
+.page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.date {
+    color: var(--gray-500);
+    margin-top: 0.5rem;
+}
+
+.mealsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.noMenu {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.emoji {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.noMenu h2 {
+    font-size: 1.5rem;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+}
+
+.noMenu p {
+    color: var(--gray-500);
+}

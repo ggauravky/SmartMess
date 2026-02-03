@@ -1,0 +1,138 @@
+.page {
+    max-width: 900px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.filterCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filterIcon {
+    color: #6b7280;
+}
+
+.filterButtons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.filterBtn:hover {
+    background: #e5e7eb;
+}
+
+.filterBtn.active {
+    background: #22c55e;
+    color: white;
+}
+
+.ratingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ratingCard {
+    padding: 1.25rem !important;
+}
+
+.ratingHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.studentInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    color: white;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.studentInfo h4 {
+    font-weight: 600;
+    color: #111827;
+}
+
+.studentInfo span {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.ratingMeta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mealBadge {
+    padding: 0.25rem 0.75rem;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: capitalize;
+}
+
+.comment {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    color: #4b5563;
+    font-style: italic;
+}
+
+.date {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}

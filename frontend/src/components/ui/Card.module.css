@@ -1,0 +1,27 @@
+.card {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.small {
+    padding: 1rem;
+}
+
+.medium {
+    padding: 1.5rem;
+}
+
+.large {
+    padding: 2rem;
+}
+
+.hover:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.clickable {
+    cursor: pointer;
+}

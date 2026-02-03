@@ -1,0 +1,128 @@
+.authPage {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .authPage {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--primary-600);
+}
+
+.authCard {
+  max-width: 420px;
+  width: 100%;
+  margin: auto;
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.authHeader h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.authHeader p {
+  color: var(--gray-500);
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.authFooter {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--gray-600);
+}
+
+.authLink {
+  color: var(--primary-600);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.authLink:hover {
+  color: var(--primary-700);
+}
+
+.authSide {
+  display: none;
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .authSide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.authSide::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.authSideContent {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 3rem;
+  max-width: 400px;
+}
+
+.authSideContent h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.authSideContent p {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  line-height: 1.7;
+}

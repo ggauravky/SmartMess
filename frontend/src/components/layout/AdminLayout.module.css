@@ -1,0 +1,248 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f3f4f6;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+}
+
+.sidebarHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.logoIcon {
+    font-size: 1.5rem;
+}
+
+.logoText {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.adminBadge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+.nav {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.navLink:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navLink.active {
+    color: white;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.navIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.sidebarFooter {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.userName {
+    display: block;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.userRole {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: none;
+    color: #f87171;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+
+.logoutBtn:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.logoutBtn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+}
+
+@media (min-width: 1024px) {
+    .overlay {
+        display: none;
+    }
+}
+
+.mainWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+    .mainWrapper {
+        margin-left: 260px;
+    }
+}
+
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.menuBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    color: #374151;
+    border-radius: 0.5rem;
+}
+
+.menuBtn:hover {
+    background: #f3f4f6;
+}
+
+.menuBtn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .menuBtn {
+        display: none;
+    }
+}
+
+.topBarRight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.welcomeText {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.welcomeText strong {
+    color: #111827;
+}
+
+.main {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding: 2rem;
+    }
+}

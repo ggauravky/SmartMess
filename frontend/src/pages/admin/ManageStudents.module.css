@@ -1,0 +1,119 @@
+.page {
+    max-width: 1000px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.count {
+    padding: 0.5rem 1rem;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 9999px;
+}
+
+.searchBox {
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+}
+
+.tableCard {
+    overflow-x: auto;
+    padding: 0 !important;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.table th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    background: #f9fafb;
+}
+
+.table td {
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.table tr:hover {
+    background: #f9fafb;
+}
+
+.studentCell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    color: white;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+}
+
+.email:hover {
+    color: #16a34a;
+}
+
+.email svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.ratingsBadge {
+    padding: 0.25rem 0.75rem;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+}
+
+.noResults {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+}
