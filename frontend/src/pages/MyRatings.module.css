@@ -1,6 +1,7 @@
 .page {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 .header {
@@ -8,14 +9,41 @@
 }
 
 .header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: var(--text-primary, #1f2937);
+    margin-bottom: 0.5rem;
 }
 
 .header p {
-    color: var(--gray-500);
-    margin-top: 0.25rem;
+    color: var(--text-secondary, #6b7280);
+}
+
+.emptyCard {
+    padding: 3rem 2rem;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+}
+
+.emptyState h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary, #1f2937);
+}
+
+.emptyState p {
+    color: var(--text-secondary, #6b7280);
+    max-width: 300px;
 }
 
 .ratingsList {
@@ -25,13 +53,14 @@
 }
 
 .ratingCard {
-    padding: 1.25rem !important;
+    padding: 1.25rem;
 }
 
-.cardHeader {
+.ratingHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 0.75rem;
 }
 
 .mealInfo {
@@ -40,48 +69,59 @@
     gap: 0.75rem;
 }
 
-.icon {
+.mealIcon {
     font-size: 2rem;
 }
 
 .mealInfo h3 {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--gray-900);
+    color: var(--text-primary, #1f2937);
+    margin: 0;
 }
 
 .date {
-    font-size: 0.75rem;
-    color: var(--gray-500);
+    font-size: 0.875rem;
+    color: var(--text-secondary, #6b7280);
+    margin: 0;
 }
 
 .comment {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--gray-100);
-    color: var(--gray-600);
-    font-style: italic;
+    color: var(--text-primary, #374151);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    background: var(--bg-secondary, #f9fafb);
+    border-radius: 0.5rem;
 }
 
-.emptyState {
-    text-align: center;
-    padding: 4rem 2rem !important;
+.menuItems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
 }
 
-.emptyIcon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 1rem;
+.menuItem {
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-light, #eff6ff);
+    color: var(--primary, #3b82f6);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
 }
 
-.emptyState h2 {
-    font-size: 1.5rem;
-    color: var(--gray-800);
-    margin-bottom: 0.5rem;
+.ratingActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border, #e5e7eb);
 }
 
-.emptyState p {
-    color: var(--gray-500);
-    max-width: 300px;
-    margin: 0 auto;
+.timestamp {
+    font-size: 0.75rem;
+    color: var(--text-muted, #9ca3af);
 }

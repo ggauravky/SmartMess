@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import Layout from "../components/layout/Layout";
 import MealCard from "../components/MealCard";
 import Loader from "../components/ui/Loader";
+import { menuAPI } from "../services/api";
 import styles from "./TodayMenu.module.css";
 
 const TodayMenu = () => {
@@ -15,30 +16,10 @@ const TodayMenu = () => {
 
   const fetchTodayMenu = async () => {
     try {
-      // Mock data - replace with actual API call
-      setMenu({
-        _id: "demo123",
-        date: new Date(),
-        meals: {
-          breakfast: ["Aloo Paratha", "Curd", "Pickle", "Chai", "Fruits"],
-          lunch: [
-            "Jeera Rice",
-            "Dal Makhani",
-            "Butter Paneer",
-            "Roti",
-            "Salad",
-            "Raita",
-          ],
-          snacks: ["Veg Cutlet", "Green Chutney", "Tea", "Bread Pakora"],
-          dinner: ["Veg Biryani", "Raita", "Mirchi Ka Salan", "Gulab Jamun"],
-        },
-        ratings: {
-          breakfast: 4.3,
-          lunch: 4.6,
-          snacks: 3.9,
-          dinner: 4.4,
-        },
-      });
+      const response = await menuAPI.getTodayMenu();
+      if (response.data.success) {
+        setMenu(response.data.menu);
+      }
     } catch (error) {
       console.error("Failed to fetch menu:", error);
     } finally {
@@ -71,10 +52,10 @@ const TodayMenu = () => {
             {["breakfast", "lunch", "snacks", "dinner"].map((mealType) => (
               <MealCard
                 key={mealType}
-                menuId={menu._id}
+                menu={menu}
                 mealType={mealType}
-                items={menu.meals[mealType]}
-                averageRating={menu.ratings[mealType]}
+                items={menu[mealType] || []}
+                averageRating={0}
               />
             ))}
           </div>

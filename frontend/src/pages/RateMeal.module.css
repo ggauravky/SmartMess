@@ -1,19 +1,20 @@
 .page {
     max-width: 600px;
     margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 .ratingCard {
-    padding: 2rem !important;
+    padding: 2rem;
 }
 
 .header {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--border, #e5e7eb);
 }
 
 .icon {
@@ -23,25 +24,32 @@
 .header h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: var(--text-primary, #1f2937);
+    margin: 0;
 }
 
 .time {
-    color: var(--gray-500);
+    color: var(--text-secondary, #6b7280);
     font-size: 0.875rem;
+    margin: 0.25rem 0 0;
+}
+
+.date {
+    color: var(--primary, #3b82f6);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0.25rem 0 0;
 }
 
 .mealItems {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .mealItems h3 {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: var(--gray-600);
+    color: var(--text-primary, #1f2937);
     margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
 .items {
@@ -52,16 +60,22 @@
 
 .item {
     padding: 0.375rem 0.875rem;
-    background: var(--gray-100);
-    border-radius: var(--radius-full);
+    background: var(--primary-light, #eff6ff);
+    color: var(--primary, #3b82f6);
+    border-radius: 9999px;
     font-size: 0.875rem;
-    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.noItems {
+    color: var(--text-muted, #9ca3af);
+    font-style: italic;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .ratingSection {
@@ -70,9 +84,9 @@
 
 .ratingSection label {
     display: block;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: var(--gray-800);
+    color: var(--text-primary, #1f2937);
     margin-bottom: 1rem;
 }
 
@@ -80,46 +94,73 @@
     display: flex;
     justify-content: space-between;
     max-width: 200px;
-    margin: 0.75rem auto 0;
+    margin: 0.5rem auto 0;
     font-size: 0.75rem;
-    color: var(--gray-400);
+    color: var(--text-muted, #9ca3af);
+}
+
+.commentSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .commentSection label {
-    display: block;
     font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--gray-700);
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary, #1f2937);
 }
 
 .commentSection textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--gray-200);
-    border-radius: var(--radius-lg);
-    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
     resize: vertical;
-    transition: border-color var(--transition-fast);
+    font-family: inherit;
 }
 
 .commentSection textarea:focus {
     outline: none;
-    border-color: var(--primary-500);
+    border-color: var(--primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .charCount {
-    display: block;
-    text-align: right;
     font-size: 0.75rem;
-    color: var(--gray-400);
-    margin-top: 0.25rem;
+    color: var(--text-muted, #9ca3af);
+    text-align: right;
 }
 
 .actions {
     display: flex;
-    gap: 1rem;
     justify-content: flex-end;
-    padding-top: 1rem;
-    border-top: 1px solid var(--gray-100);
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+}
+
+.emptyState h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary, #1f2937);
+    margin: 0;
+}
+
+.emptyState p {
+    color: var(--text-secondary, #6b7280);
+    max-width: 300px;
+    margin: 0;
 }

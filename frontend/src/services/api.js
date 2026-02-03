@@ -1,19 +1,52 @@
 import axios from "axios";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const AUTH_STORAGE_KEY = "smartmess_auth";
+
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Request interceptor - add auth token
+// Check if token is expired
+const isTokenExpired = () => {
+  try {
+    const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (!storedAuth) return true;
+
+    const authData = JSON.parse(storedAuth);
+    if (!authData.expiresAt) return true;
+
+    return new Date(authData.expiresAt) <= new Date();
+  } catch {
+    return true;
+  }
+};
+
+// Clear auth data
+const clearAuth = () => {
+  localStorage.removeItem(AUTH_STORAGE_KEY);
+  localStorage.removeItem("token");
+  window.location.href = "/login";
+};
+
+// Add token to requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+
     if (token) {
+      // Check if token is expired before making request
+      if (isTokenExpired()) {
+        clearAuth();
+        return Promise.reject(new Error("Token expired"));
+      }
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {
@@ -21,62 +54,55 @@ api.interceptors.request.use(
   },
 );
 
-// Response interceptor - handle errors
+// Handle response errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      // Token is invalid or expired
+      clearAuth();
     }
     return Promise.reject(error);
   },
 );
 
-export default api;
-
-// API endpoints
+// Auth API
 export const authAPI = {
-  login: (data) => api.post("/auth/login", data),
-  adminLogin: (data) => api.post("/auth/admin/login", data),
-  register: (data) => api.post("/auth/register", data),
-  getMe: () => api.get("/auth/me"),
-  updateProfile: (data) => api.put("/auth/profile", data),
+  login: (credentials) => api.post("/auth/login", credentials),
+  register: (userData) => api.post("/auth/register", userData),
+  getProfile: () => api.get("/auth/profile"),
+  logout: () => api.post("/auth/logout"),
 };
 
+// Menu API
 export const menuAPI = {
   getTodayMenu: () => api.get("/menu/today"),
+  getMenuByDate: (date) => api.get(`/menu/date/${date}`),
   getWeeklyMenu: () => api.get("/menu/weekly"),
-  getMenuById: (id) => api.get(`/menu/${id}`),
-  getMealDetails: (menuId, mealType) => api.get(`/menu/${menuId}/${mealType}`),
-  // Admin endpoints
-  createMenu: (data) => api.post("/menu", data),
-  updateMenu: (id, data) => api.put(`/menu/${id}`, data),
+  getAllMenus: () => api.get("/menu"),
+  createMenu: (menuData) => api.post("/menu", menuData),
+  updateMenu: (id, menuData) => api.put(`/menu/${id}`, menuData),
   deleteMenu: (id) => api.delete(`/menu/${id}`),
-  getAllMenus: () => api.get("/menu/all"),
 };
 
+// Rating API
 export const ratingAPI = {
-  createRating: (data) => api.post("/ratings", data),
+  createRating: (ratingData) => api.post("/ratings", ratingData),
   getMyRatings: () => api.get("/ratings/my-ratings"),
-  getRatingsByMenu: (menuId) => api.get(`/ratings/menu/${menuId}`),
-  getAverageRating: (menuId, mealType) =>
-    api.get(`/ratings/average/${menuId}/${mealType}`),
-  updateRating: (id, data) => api.put(`/ratings/${id}`, data),
+  getRatingById: (id) => api.get(`/ratings/${id}`),
+  updateRating: (id, ratingData) => api.put(`/ratings/${id}`, ratingData),
   deleteRating: (id) => api.delete(`/ratings/${id}`),
-  // Admin endpoints
+  getMealRatings: (menuId, mealType) =>
+    api.get(`/ratings/meal/${menuId}/${mealType}`),
+  getAverageRatings: () => api.get("/ratings/analytics/average"),
   getAllRatings: () => api.get("/ratings/all"),
-  getRatingsStats: () => api.get("/ratings/stats"),
 };
 
-// Admin specific APIs
-export const adminAPI = {
-  getDashboardStats: () => api.get("/admin/dashboard"),
-  getStudents: () => api.get("/admin/students"),
-  getStudentById: (id) => api.get(`/admin/students/${id}`),
-  updateStudent: (id, data) => api.put(`/admin/students/${id}`, data),
-  deleteStudent: (id) => api.delete(`/admin/students/${id}`),
-  getReports: (params) => api.get("/admin/reports", { params }),
-  exportRatings: (params) =>
-    api.get("/admin/export/ratings", { params, responseType: "blob" }),
+// User API
+export const userAPI = {
+  getProfile: () => api.get("/users/profile"),
+  updateProfile: (data) => api.put("/users/profile", data),
+  getAllUsers: () => api.get("/users"),
 };
+
+export default api;

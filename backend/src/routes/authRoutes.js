@@ -1,211 +1,235 @@
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { supabase } = require("../config/database");
 
-.header {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+const JWT_SECRET = process.env.JWT_SECRET || "smartmess_fallback_secret";
 
-@media (min-width: 640px) {
-    .header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+const generateToken = (user, role) => {
+  return jwt.sign({ id: user.id, email: user.email, role }, JWT_SECRET, {
+    expiresIn: "7d",
+  });
+};
+
+// REGISTER
+router.post("/register", async (req, res) => {
+  try {
+    console.log("📝 Register:", req.body);
+    const {
+      name,
+      email,
+      password,
+      rollNumber,
+      hostelName,
+      roomNumber,
+      phoneNumber,
+    } = req.body;
+
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !rollNumber ||
+      !hostelName ||
+      !roomNumber ||
+      !phoneNumber
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
     }
-}
 
-.header h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #111827;
-}
+    // Check existing
+    const { data: existing } = await supabase
+      .from("students")
+      .select("id")
+      .or(`email.eq.${email},roll_number.eq.${rollNumber}`)
+      .limit(1);
 
-.date {
-    color: #6b7280;
-    font-size: 0.875rem;
-}
+    if (existing && existing.length > 0) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Email or Roll Number already exists",
+        });
+    }
 
-.statsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-.statCard {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem !important;
-}
+    const { data: student, error } = await supabase
+      .from("students")
+      .insert([
+        {
+          name,
+          email,
+          roll_number: rollNumber,
+          password: hashedPassword,
+          hostel_name: hostelName,
+          room_number: roomNumber,
+          phone_number: phoneNumber,
+          is_verified: true,
+          is_active: true,
+        },
+      ])
+      .select()
+      .single();
 
-.statIcon {
-    width: 50px;
-    height: 50px;
-    border-radius: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    if (error) {
+      console.error("DB Error:", error);
+      return res.status(400).json({ success: false, message: error.message });
+    }
 
-.statIcon svg {
-    width: 24px;
-    height: 24px;
-}
+    const token = generateToken(student, "student");
 
-.statInfo {
-    display: flex;
-    flex-direction: column;
-}
+    res.status(201).json({
+      success: true,
+      message: "Registration successful!",
+      token,
+      user: {
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        rollNumber: student.roll_number,
+        role: "student",
+      },
+    });
+  } catch (error) {
+    console.error("Register Error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
-.statValue {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #111827;
-}
+// LOGIN
+router.post("/login", async (req, res) => {
+  try {
+    console.log("🔐 Login:", req.body.email);
+    const { email, password } = req.body;
 
-.statLabel {
-    font-size: 0.75rem;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email and password required" });
+    }
 
-.section h2 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 1rem;
-}
+    const { data: student } = await supabase
+      .from("students")
+      .select("*")
+      .eq("email", email)
+      .single();
 
-.sectionHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
+    if (!student) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
 
-.viewAll {
-    color: #16a34a;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
+    const valid = await bcrypt.compare(password, student.password);
+    if (!valid) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
 
-.actionsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-}
+    const token = generateToken(student, "student");
 
-.actionCard {
-    text-align: center;
-    padding: 1.5rem !important;
-    cursor: pointer;
-}
+    res.json({
+      success: true,
+      message: "Login successful!",
+      token,
+      user: {
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        rollNumber: student.roll_number,
+        role: "student",
+      },
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
-.actionIcon {
-    width: 2rem;
-    height: 2rem;
-    color: #22c55e;
-    margin-bottom: 0.75rem;
-}
-
-.actionCard h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.25rem;
-}
-
-.actionCard p {
-    font-size: 0.75rem;
-    color: #6b7280;
-}
-
-.tableCard {
-    overflow-x: auto;
-    padding: 0 !important;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.table th {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    background: #f9fafb;
-}
-
-.table td {
-    font-size: 0.875rem;
-    color: #374151;
-}
-
-.mealType {
-    text-transform: capitalize;
-}
-
-.ratingBadge {
-    padding: 0.25rem 0.5rem;
-    background: #fef3c7;
-    color: #b45309;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.time {
-    color: #9ca3af;
-}
-
-// Admin Login Route
-router.post('/admin/login', async (req, res) => {
+// ADMIN LOGIN
+router.post("/admin/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find admin by email
-    const admin = await Admin.findOne({ email });
+    const { data: admin } = await supabase
+      .from("admins")
+      .select("*")
+      .eq("email", email)
+      .single();
+
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid admin credentials' });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid admin credentials" });
     }
 
-    // Check password
-    const isMatch = await bcrypt.compare(password, admin.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid admin credentials' });
+    const valid = await bcrypt.compare(password, admin.password);
+    if (!valid) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid admin credentials" });
     }
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: admin._id, role: 'admin' },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    const token = generateToken(admin, "admin");
 
     res.json({
+      success: true,
       token,
       user: {
-        id: admin._id,
+        id: admin.id,
         name: admin.name,
         email: admin.email,
-        role: 'admin'
-      }
+        role: "admin",
+      },
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error("Admin Login Error:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 });
+
+// GET ME
+router.get("/me", async (req, res) => {
+  try {
+    const auth = req.headers.authorization;
+    if (!auth?.startsWith("Bearer ")) {
+      return res.status(401).json({ success: false, message: "No token" });
+    }
+
+    const decoded = jwt.verify(auth.split(" ")[1], JWT_SECRET);
+    const table = decoded.role === "admin" ? "admins" : "students";
+
+    const { data: user } = await supabase
+      .from(table)
+      .select("*")
+      .eq("id", decoded.id)
+      .single();
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.json({
+      success: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        rollNumber: user.roll_number,
+        role: decoded.role,
+      },
+    });
+  } catch (error) {
+    res.status(401).json({ success: false, message: "Invalid token" });
+  }
+});
+
+module.exports = router;

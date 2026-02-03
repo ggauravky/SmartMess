@@ -20,7 +20,7 @@ const mealTimes = {
 };
 
 const MealCard = ({
-  menuId,
+  menu,
   mealType,
   items = [],
   averageRating = 0,
@@ -29,7 +29,9 @@ const MealCard = ({
   const navigate = useNavigate();
 
   const handleRateClick = () => {
-    navigate(`/rate-meal/${menuId}/${mealType}`);
+    // Use menu date or 'today' as the identifier
+    const menuIdentifier = menu?.date || "today";
+    navigate(`/rate-meal/${menuIdentifier}/${mealType}`);
   };
 
   return (
@@ -53,7 +55,7 @@ const MealCard = ({
       </div>
 
       <div className={styles.items}>
-        {items.length > 0 ? (
+        {items && items.length > 0 ? (
           <ul className={styles.itemList}>
             {items.map((item, index) => (
               <li key={index} className={styles.item}>
@@ -78,7 +80,7 @@ const MealCard = ({
             variant="primary"
             size="small"
             onClick={handleRateClick}
-            disabled={items.length === 0}
+            disabled={!items || items.length === 0}
           >
             Rate this meal
           </Button>

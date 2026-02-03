@@ -5,140 +5,118 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AdminRoute from "./components/AdminRoute";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import Loader from "./components/ui/Loader";
 
 // Pages
-import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import TodayMenu from "./pages/TodayMenu";
-import WeeklyMenu from "./pages/WeeklyMenu";
 import RateMeal from "./pages/RateMeal";
 import MyRatings from "./pages/MyRatings";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
 
-// Admin Pages
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import ManageMenu from "./pages/admin/ManageMenu";
-import ViewRatings from "./pages/admin/ViewRatings";
-import ManageStudents from "./pages/admin/ManageStudents";
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
 
-function App() {
+  if (loading) {
+    return <Loader fullScreen />;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
+// Public Route Component (redirects to dashboard if logged in)
+const PublicRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <Loader fullScreen />;
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
+};
+
+const AppRoutes = () => {
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
+
+      {/* Protected Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/rate/:menuId/:mealType"
+        element={
+          <ProtectedRoute>
+            <RateMeal />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-ratings"
+        element={
+          <ProtectedRoute>
+            <MyRatings />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Default redirect */}
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+    </Routes>
+  );
+};
+
+const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <AppRoutes />
         <Toaster
           position="top-right"
           toastOptions={{
             duration: 3000,
             style: {
-              background: "#363636",
+              background: "#333",
               color: "#fff",
             },
           }}
         />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-
-          {/* Protected Student Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/today-menu"
-            element={
-              <ProtectedRoute>
-                <TodayMenu />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/weekly-menu"
-            element={
-              <ProtectedRoute>
-                <WeeklyMenu />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/rate-meal/:menuId/:mealType"
-            element={
-              <ProtectedRoute>
-                <RateMeal />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/my-ratings"
-            element={
-              <ProtectedRoute>
-                <MyRatings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Admin Protected Routes */}
-          <Route
-            path="/admin/dashboard"
-            element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/manage-menu"
-            element={
-              <AdminRoute>
-                <ManageMenu />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/ratings"
-            element={
-              <AdminRoute>
-                <ViewRatings />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/admin/students"
-            element={
-              <AdminRoute>
-                <ManageStudents />
-              </AdminRoute>
-            }
-          />
-
-          {/* 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
       </Router>
     </AuthProvider>
   );
-}
+};
 
 export default App;

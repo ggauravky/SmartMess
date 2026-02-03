@@ -22,24 +22,29 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      // For demo, using mock data - replace with actual API calls
-      setTodayMenu({
-        _id: "demo123",
-        date: new Date(),
-        meals: {
-          breakfast: ["Poha", "Chai", "Bread Butter", "Banana"],
-          lunch: ["Rice", "Dal Tadka", "Paneer Curry", "Roti", "Salad"],
-          snacks: ["Samosa", "Tea", "Biscuits"],
-          dinner: ["Chapati", "Mix Veg", "Dal Fry", "Rice", "Sweet"],
-        },
-        ratings: {
-          breakfast: 4.2,
-          lunch: 4.5,
-          snacks: 3.8,
-          dinner: 4.0,
-        },
-      });
-      setStats({ totalRatings: 45, avgRating: 4.1 });
+      // Fetch today's menu
+      const menuResponse = await menuAPI.getTodayMenu();
+      if (menuResponse.data.success && menuResponse.data.menu) {
+        setTodayMenu(menuResponse.data.menu);
+      }
+
+      // Fetch user's ratings
+      try {
+        const ratingsResponse = await ratingAPI.getMyRatings();
+        if (ratingsResponse.data.success) {
+          const ratings = ratingsResponse.data.ratings || [];
+          const avg =
+            ratings.length > 0
+              ? ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length
+              : 0;
+          setStats({
+            totalRatings: ratings.length,
+            avgRating: avg,
+          });
+        }
+      } catch (e) {
+        console.log("No ratings yet");
+      }
     } catch (error) {
       console.error("Failed to fetch dashboard data:", error);
     } finally {
@@ -107,7 +112,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* Current/Next Meal Highlight */}
+        {/* Current Meal */}
         {currentMeal && todayMenu && (
           <section className={styles.currentMeal}>
             <div className={styles.sectionHeader}>
@@ -115,15 +120,15 @@ const Dashboard = () => {
               <span className={styles.badge}>{currentMeal}</span>
             </div>
             <MealCard
-              menuId={todayMenu._id}
+              menu={todayMenu}
               mealType={currentMeal}
-              items={todayMenu.meals[currentMeal]}
-              averageRating={todayMenu.ratings[currentMeal]}
+              items={todayMenu[currentMeal] || []}
+              averageRating={0}
             />
           </section>
         )}
 
-        {/* Today's Menu Overview */}
+        {/* Today's Menu */}
         <section className={styles.todayMenu}>
           <div className={styles.sectionHeader}>
             <h2>Today's Menu</h2>
@@ -137,16 +142,16 @@ const Dashboard = () => {
               {["breakfast", "lunch", "snacks", "dinner"].map((mealType) => (
                 <MealCard
                   key={mealType}
-                  menuId={todayMenu._id}
+                  menu={todayMenu}
                   mealType={mealType}
-                  items={todayMenu.meals[mealType]}
-                  averageRating={todayMenu.ratings[mealType]}
+                  items={todayMenu[mealType] || []}
+                  averageRating={0}
                 />
               ))}
             </div>
           ) : (
             <Card className={styles.noMenu}>
-              <p>No menu available for today</p>
+              <p>No menu available for today. Check back later!</p>
             </Card>
           )}
         </section>

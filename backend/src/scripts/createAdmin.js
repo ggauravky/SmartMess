@@ -2,35 +2,66 @@ const mongoose = require("mongoose");
 const Admin = require("../models/Admin");
 require("dotenv").config();
 
+const bcrypt = require("bcryptjs");
+const { createClient } = require("@supabase/supabase-js");
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY,
+);
+
 const createAdmin = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    const adminData = {
+      name: "Admin",
+      email: "admin@smartmess.com",
+      password: "admin123",
+      phone_number: "9999999999",
+      role: "superadmin",
+    };
 
-    // Check if admin already exists
-    const existingAdmin = await Admin.findOne({ email: "admin@smartmess.com" });
-    if (existingAdmin) {
-      console.log("Admin already exists!");
-      console.log("Email: admin@smartmess.com");
+    // Check if admin exists
+    const { data: existing } = await supabase
+      .from("admins")
+      .select("id")
+      .eq("email", adminData.email)
+      .single();
+
+    if (existing) {
+      console.log("⚠️  Admin already exists!");
+      console.log("📧 Email:", adminData.email);
+      console.log("🔑 Password: admin123");
       process.exit(0);
     }
 
-    // Create new admin
-    const admin = new Admin({
-      name: "Admin",
-      email: "admin@smartmess.com",
-      password: "admin123", // Change this in production!
-    });
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(adminData.password, salt);
 
-    await admin.save();
+    // Insert admin
+    const { data, error } = await supabase
+      .from("admins")
+      .insert([
+        {
+          ...adminData,
+          password: hashedPassword,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      console.error("❌ Error:", error.message);
+      process.exit(1);
+    }
 
     console.log("✅ Admin created successfully!");
-    console.log("📧 Email: admin@smartmess.com");
-    console.log("🔑 Password: admin123");
-    console.log("\n⚠️  Please change the password after first login!");
-
+    console.log("📧 Email:", adminData.email);
+    console.log("🔑 Password:", adminData.password);
+    console.log("\n⚠️  Change this password after first login!");
     process.exit(0);
   } catch (error) {
-    console.error("Error creating admin:", error);
+    console.error("❌ Error:", error);
     process.exit(1);
   }
 };
