@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const { supabase } = require("../config/database");
+const { getSupabase } = require("../config/database");
 
 // Helper: Get local date string (YYYY-MM-DD format)
+// For production server, we need to account for IST timezone (UTC+5:30)
 const getLocalDateString = (date = new Date()) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  // Add 5 hours 30 minutes to convert UTC to IST
+  const istOffset = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
+  const istDate = new Date(date.getTime() + istOffset);
+  
+  const year = istDate.getUTCFullYear();
+  const month = String(istDate.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(istDate.getUTCDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
 
@@ -27,14 +32,24 @@ const getDayName = (date) => {
 // Get today's menu
 router.get("/today", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const today = getLocalDateString();
-    const { data } = await supabase
+    console.log("📅 Fetching menu for date:", today);
+    
+    const { data, error } = await supabase
       .from("menus")
       .select("*")
       .eq("date", today)
       .maybeSingle();
+    
+    if (error) {
+      console.error("Menu fetch error:", error);
+    }
+    
+    console.log("📋 Menu found:", data ? "Yes" : "No");
     res.json({ success: true, menu: data });
   } catch (error) {
+    console.error("Menu error:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 });
@@ -42,6 +57,7 @@ router.get("/today", async (req, res) => {
 // Get weekly menu
 router.get("/weekly", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { data } = await supabase
       .from("menus")
       .select("*")
@@ -56,6 +72,7 @@ router.get("/weekly", async (req, res) => {
 // Get menu by date
 router.get("/date/:date", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { date } = req.params;
 
     const { data, error } = await supabase
@@ -79,6 +96,7 @@ router.get("/date/:date", async (req, res) => {
 // Create/Update menu (Admin)
 router.post("/", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { date, breakfast, lunch, snacks, dinner } = req.body;
     const days = [
       "Sunday",
@@ -112,6 +130,7 @@ router.post("/", async (req, res) => {
 // Get all menus (Admin)
 router.get("/", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { data } = await supabase
       .from("menus")
       .select("*")
@@ -126,6 +145,7 @@ router.get("/", async (req, res) => {
 // Update menu
 router.put("/:id", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { id } = req.params;
     const { date, breakfast, lunch, snacks, dinner, special_note } = req.body;
     const day = getDayName(date);
@@ -147,6 +167,7 @@ router.put("/:id", async (req, res) => {
 // Delete menu
 router.delete("/:id", async (req, res) => {
   try {
+    const supabase = getSupabase();
     const { id } = req.params;
 
     const { error } = await supabase
