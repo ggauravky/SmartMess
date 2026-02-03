@@ -7,6 +7,14 @@ import Button from "../components/ui/Button";
 import { menuAPI } from "../services/api";
 import styles from "./WeeklyMenu.module.css";
 
+// Helper: Get local date string (YYYY-MM-DD) - matches backend format
+const getLocalDateString = (date = new Date()) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const mealIcons = {
   breakfast: "🌅",
   lunch: "☀️",
@@ -42,7 +50,7 @@ const WeeklyMenu = () => {
         setWeeklyMenu(menus);
         
         // Set selected day to today if available
-        const today = new Date().toISOString().split('T')[0];
+        const today = getLocalDateString();
         const todayIndex = menus.findIndex(m => 
           format(m.date, 'yyyy-MM-dd') === today
         );

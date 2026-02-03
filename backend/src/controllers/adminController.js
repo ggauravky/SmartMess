@@ -4,6 +4,17 @@ const { getSupabase } = require("../config/database");
 const bcrypt = require("bcryptjs");
 
 // ============================================
+// HELPER: Get local date string (YYYY-MM-DD format)
+// This avoids UTC timezone issues
+// ============================================
+const getLocalDateString = (date = new Date()) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+// ============================================
 // DASHBOARD STATS
 // ============================================
 const getDashboardStats = async (req, res) => {
@@ -37,7 +48,7 @@ const getDashboardStats = async (req, res) => {
         : 0;
 
     // Get today's ratings
-    const today = new Date().toISOString().split("T")[0];
+    const today = getLocalDateString();
     const { count: todayRatings } = await supabase
       .from("ratings")
       .select("*", { count: "exact", head: true })
@@ -772,7 +783,7 @@ const getMealAttendance = async (req, res) => {
     const supabase = getSupabase();
     const { date, mealType } = req.query;
 
-    const queryDate = date || new Date().toISOString().split('T')[0];
+    const queryDate = date || getLocalDateString();
 
     // Get all active students
     const { data: students, error: studentsError } = await supabase
@@ -887,7 +898,7 @@ const getAttendanceStats = async (req, res) => {
     for (let i = 6; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split("T")[0];
+      const dateStr = getLocalDateString(date);
 
       // Get attendance records for this date
       const { data: records } = await supabase

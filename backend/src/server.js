@@ -18,13 +18,30 @@ process.on('unhandledRejection', (err) => {
 const app = express();
 
 // Step 3: Middleware - These run before our routes
+// CORS Configuration for production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: "*", // Allow all origins for development
+    origin: function(origin, callback) {
+      // Allow requests with no origin (mobile apps, curl, etc)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-); // Enable CORS for all routes
+    credentials: true
+  })
+);
 app.use(express.json()); // Parse incoming JSON data from requests
 
 // Step 4: Connect to Supabase
@@ -37,11 +54,13 @@ const ratingRoutes = require("./routes/ratingRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 
-// Debug middleware to log all requests - MUST be before routes
-app.use((req, res, next) => {
-  console.log(`📥 ${req.method} ${req.originalUrl}`);
-  next();
-});
+// Debug middleware to log all requests (only in development)
+if (process.env.NODE_ENV !== 'production') {
+  app.use((req, res, next) => {
+    console.log(`📥 ${req.method} ${req.originalUrl}`);
+    next();
+  });
+}
 
 // Step 6: Use Routes
 app.use("/api/auth", authRoutes); // All auth routes will start with /api/auth
@@ -84,7 +103,10 @@ app.use((err, req, res, next) => {
 
 // Step 11: Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📋 Test: http://localhost:${PORT}/api/health\n`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n🚀 Server running on port ${PORT}`);
+  console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`);
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`📋 Test: http://localhost:${PORT}/api/health\n`);
+  }
 });

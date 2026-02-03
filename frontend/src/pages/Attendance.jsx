@@ -8,7 +8,8 @@ import {
   FiSun,
   FiCoffee,
   FiMoon,
-  FiCalendar
+  FiCalendar,
+  FiRefreshCw
 } from 'react-icons/fi'
 import Layout from '../components/layout/Layout'
 import Card from '../components/ui/Card'
@@ -19,12 +20,25 @@ import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 import styles from './Attendance.module.css'
 
+// Helper: Get local date string (YYYY-MM-DD) - matches backend format
+const getLocalDateString = () => {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 // Helper functions for localStorage persistence
-const getLocalStorageKey = (userId) => `attendance_${userId}_${format(new Date(), 'yyyy-MM-dd')}`
+const getLocalStorageKey = (userId) => `attendance_${userId}_${getLocalDateString()}`
 
 const saveToLocalStorage = (userId, status) => {
   try {
-    localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(status))
+    const key = getLocalStorageKey(userId)
+    localStorage.setItem(key, JSON.stringify({
+      date: getLocalDateString(),
+      status
+    }))
   } catch (e) {
     console.error('Error saving to localStorage:', e)
   }
@@ -32,8 +46,19 @@ const saveToLocalStorage = (userId, status) => {
 
 const loadFromLocalStorage = (userId) => {
   try {
-    const data = localStorage.getItem(getLocalStorageKey(userId))
-    return data ? JSON.parse(data) : null
+    const key = getLocalStorageKey(userId)
+    const data = localStorage.getItem(key)
+    if (!data) return null
+    
+    const parsed = JSON.parse(data)
+    
+    // Verify it's today's data
+    if (parsed.date !== getLocalDateString()) {
+      localStorage.removeItem(key)
+      return null
+    }
+    
+    return parsed.status
   } catch (e) {
     console.error('Error loading from localStorage:', e)
     return null
@@ -61,8 +86,9 @@ const Attendance = () => {
   const fetchData = async () => {
     try {
       setLoading(true)
+      const today = getLocalDateString()
       
-      // First, load from localStorage as immediate fallback
+      // First, load from localStorage as immediate display
       const cachedStatus = loadFromLocalStorage(user.id)
       console.log('📦 Cached status from localStorage:', cachedStatus)
       if (cachedStatus) {
@@ -70,34 +96,43 @@ const Attendance = () => {
       }
       
       // Fetch today's status from server
-      console.log('🔄 Fetching today status for user:', user.id)
+      console.log('🔄 Fetching today status for user:', user.id, 'date:', today)
       const statusRes = await attendanceAPI.getTodayStatus(user.id)
       console.log('📥 Server response:', statusRes.data)
       
       if (statusRes.data.success) {
         const serverStatus = statusRes.data.data
-        console.log('✅ Server status data:', serverStatus)
+        const serverDate = statusRes.data.date
+        console.log('✅ Server status data:', serverStatus, 'for date:', serverDate)
+        
+        // Check if server returned today's date (matching local date)
+        const isToday = serverDate === today
+        console.log('📅 Is server date today?', isToday, `(server: ${serverDate}, local: ${today})`)
         
         // Check if server returned any marked meals
         const hasMarkedMeals = Object.values(serverStatus).some(status => status !== null)
-        console.log('🍽️ Has marked meals:', hasMarkedMeals)
+        console.log('🍽️ Has marked meals from server:', hasMarkedMeals)
         
-        // Only use server data if it has marked meals OR if we have no cached data
-        // This prevents empty server response (due to timezone) from clearing valid local data
-        if (hasMarkedMeals) {
+        if (isToday && hasMarkedMeals) {
+          // Server has today's data - use it and sync to localStorage
           setTodayStatus(serverStatus)
           saveToLocalStorage(user.id, serverStatus)
-        } else if (!cachedStatus) {
-          // No cached data and no server data - set empty
-          setTodayStatus(serverStatus)
+        } else if (cachedStatus && !hasMarkedMeals) {
+          // Keep localStorage data if server returned empty but we have cache
+          console.log('⚡ Using cached data since server returned empty')
+        } else if (!cachedStatus && !hasMarkedMeals) {
+          // No cache, no server data - start fresh
+          setTodayStatus({ breakfast: null, lunch: null, snacks: null, dinner: null })
         }
-        // If server has no data but we have cache, keep the cache (already set above)
       }
 
       // Fetch history (last 7 days)
+      const startDate = new Date()
+      startDate.setDate(startDate.getDate() - 7)
+      
       const historyRes = await attendanceAPI.getMyAttendance(user.id, {
-        startDate: format(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd'),
-        endDate: format(new Date(), 'yyyy-MM-dd')
+        startDate: getLocalDateString(),
+        endDate: getLocalDateString()
       })
       if (historyRes.data.success) {
         console.log('📊 History data:', historyRes.data.data)
@@ -120,9 +155,11 @@ const Attendance = () => {
   const handleMarkAttendance = async (mealType, status) => {
     try {
       setMarking(mealType)
+      const today = getLocalDateString()
+      
       const response = await attendanceAPI.markAttendance({
         studentId: user.id,
-        date: format(new Date(), 'yyyy-MM-dd'),
+        date: today,
         mealType,
         status
       })
@@ -138,6 +175,7 @@ const Attendance = () => {
         toast.success(`Marked as ${status} for ${mealType}`)
       }
     } catch (error) {
+      console.error('Error marking attendance:', error)
       toast.error('Failed to mark attendance')
     } finally {
       setMarking(null)

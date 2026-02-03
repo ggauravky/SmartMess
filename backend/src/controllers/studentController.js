@@ -3,6 +3,17 @@
 const { getSupabase } = require('../config/database');
 
 // ============================================
+// HELPER: Get local date string (YYYY-MM-DD format)
+// This avoids UTC timezone issues
+// ============================================
+const getLocalDateString = (date = new Date()) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+// ============================================
 // 1. GET TODAY'S MENU
 // ============================================
 // This function fetches the menu for today's date
@@ -10,8 +21,8 @@ const getTodaysMenu = async (req, res) => {
   try {
     const supabase = getSupabase();
     
-    // Step 1: Get today's date in YYYY-MM-DD format
-    const today = new Date().toISOString().split('T')[0];
+    // Step 1: Get today's date in YYYY-MM-DD format (using local time)
+    const today = getLocalDateString();
     
     // Step 2: Fetch menu from database for today's date
     const { data: menu, error } = await supabase
@@ -109,9 +120,9 @@ const getWeeklyMenu = async (req, res) => {
     const nextWeek = new Date(today);
     nextWeek.setDate(today.getDate() + 7);
     
-    // Convert to YYYY-MM-DD format
-    const todayStr = today.toISOString().split('T')[0];
-    const nextWeekStr = nextWeek.toISOString().split('T')[0];
+    // Convert to YYYY-MM-DD format (using local time)
+    const todayStr = getLocalDateString(today);
+    const nextWeekStr = getLocalDateString(nextWeek);
     
     // Step 3: Fetch all menus between today and next week
     const { data: menus, error } = await supabase
@@ -204,7 +215,7 @@ const submitRating = async (req, res) => {
         meal_type: mealType,
         rating: rating,
         comment: comment || '',
-        rating_date: new Date().toISOString()
+        rating_date: getLocalDateString()
       }])
       .select()
       .single();
@@ -460,9 +471,8 @@ const getTodayAttendanceStatus = async (req, res) => {
     const supabase = getSupabase();
     const { studentId } = req.params;
     
-    // Use local date instead of UTC to avoid timezone issues
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    // Use local date helper to avoid timezone issues
+    const today = getLocalDateString();
     
     console.log('📅 Fetching attendance for date:', today, 'studentId:', studentId);
 
