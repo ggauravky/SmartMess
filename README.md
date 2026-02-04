@@ -1,478 +1,297 @@
+# 🍽️ SmartMess - Hostel Mess Management System
+
 <div align="center">
 
-![Header](https://capsule-render.vercel.app/api?type=waving&color=0:FF6B35,100:F7C815&height=200&section=header&text=Smart%20Mess&fontSize=60&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Intelligent%20Mess%20Management%20System&descAlignY=55&descSize=20)
+![SmartMess Banner](https://img.shields.io/badge/SmartMess-Mess_Management-4F46E5?style=for-the-badge&logo=restaurant&logoColor=white)
 
-<!-- Option 1: Current - Fork and Knife with Plate -->
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Shallow%20Pan%20of%20Food.png" alt="Smart Mess" width="120"/>
+[![Live Demo](https://img.shields.io/badge/Live-Demo-22C55E?style=for-the-badge&logo=vercel)](https://smartmesslms.vercel.app)
+[![Backend API](https://img.shields.io/badge/Backend-API-8B5CF6?style=for-the-badge&logo=express)](https://smartmess-backend.onrender.com/api/health)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
-### 🍽️ Streamlining Mess Operations | One Meal at a Time
+**A modern, full-stack web application for managing hostel mess operations, menu planning, and student feedback.**
 
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
-![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-
-![GitHub stars](https://img.shields.io/github/stars/nikhilxagr/SmartMess?style=for-the-badge&logo=github)
-![GitHub forks](https://img.shields.io/github/forks/nikhilxagr/SmartMess?style=for-the-badge&logo=github)
-![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [Usage](#-usage) • [API Documentation](#-api-documentation)
 
 </div>
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Trophy.png" alt="Trophy" width="25" /> TECHx26 HACKATHON
+## 📋 Table of Contents
 
-<div align="center">
-
-| 🎯  | **Event Details**                                      |
-| :-: | :----------------------------------------------------- |
-| 🏆  | **TECHx26 Hackathon**                                  |
-| 🏫  | Lucknow Public College of Professional Studies (LPCPS) |
-| ⏱️  | 24-hour challenge (3 Feb – 4 Feb 2025)                 |
-| 👨‍💻  | **Team Code Crafters**                                 |
-
-```
-🔥 24 Hours | 1 Team | Unlimited Innovation 🔥
-```
-
-</div>
+- [Problem Statement](#-problem-statement)
+- [Solution](#-solution)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [API Documentation](#-api-documentation)
+- [Screenshots](#-screenshots)
+- [Deployment](#-deployment)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Bookmark%20Tabs.png" alt="Bookmark" width="25" /> About The Project
+## 🎯 Problem Statement
 
-Welcome to **Smart Mess** – Your Complete Mess Management Solution! 🎯
+### Current Challenges in Hostel Mess Management:
 
-<table>
-<tr>
-<td>
+| Problem | Impact |
+|---------|--------|
+| **No Menu Visibility** | Students walk to mess blindly without knowing what's being served |
+| **Zero Feedback Mechanism** | Mess management has no structured way to collect student feedback |
+| **Manual Attendance Tracking** | Time-consuming paper-based attendance system prone to errors |
+| **Poor Communication** | No platform for students to raise complaints or suggestions |
+| **No Data Analytics** | Management lacks insights into food preferences and quality trends |
+| **Inefficient Operations** | Difficulty in menu planning and resource allocation |
 
-### 🎯 Problem Statement
-
-Managing mess operations manually leads to:
-
-- 🍲 Food wastage due to unpredictable demand
-- ⏰ Long queues during peak hours
-- 📉 Inefficient tracking of meals consumed
-- 💸 Financial discrepancies in billing
-- 📋 No real-time menu visibility
-
-</td>
-<td>
-
-### 💡 Our Solution
-
-**Smart Mess** digitizes the entire process:
-
-- ✅ Real-time meal booking & cancellation
-- ✅ Digital menu display with daily updates
-- ✅ Automated billing & payment tracking
-- ✅ Admin analytics dashboard
-- ✅ QR-based meal verification
-
-</td>
-</tr>
-</table>
+### Real-World Pain Points:
+- 🚶 Students waste time walking to mess only to find undesirable food
+- 📝 Feedback gets lost in informal WhatsApp groups or verbal complaints
+- ⏰ Long queues during attendance marking
+- 😞 Low student satisfaction due to lack of voice in mess operations
+- 💰 Food wastage due to poor demand forecasting
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Desktop%20Computer.png" alt="Architecture" width="25" /> System Architecture
+## 💡 Solution
+
+**SmartMess** is a comprehensive digital platform that bridges the gap between mess management and students, providing:
+
+### For Students:
+✅ **Real-time Menu Access** - Check today's breakfast, lunch, snacks, and dinner from anywhere  
+✅ **Rating System** - Rate meals with 1-5 stars and add detailed comments  
+✅ **Digital Attendance** - Mark attendance digitally with a single click  
+✅ **Complaint Portal** - Raise and track complaints with status updates  
+✅ **History Tracking** - View all past ratings and attendance records  
+
+### For Administrators:
+✅ **Menu Management** - Create and update daily/weekly menus easily  
+✅ **Student Management** - Approve registrations, verify students, manage accounts  
+✅ **Analytics Dashboard** - View ratings, trends, and student feedback at a glance  
+✅ **Complaint Management** - Review and respond to student complaints  
+✅ **Attendance Reports** - Track meal-wise attendance and generate reports  
+
+### Key Benefits:
+- 📱 **Mobile-First Design** - Access from any device, anywhere
+- 🔐 **Secure Authentication** - JWT-based secure login system
+- ⚡ **Real-Time Updates** - Instant menu changes and notifications
+- 📊 **Data-Driven Decisions** - Analytics to improve food quality
+- 🎨 **Modern UI/UX** - Intuitive interface with smooth animations
+
+---
+
+## ✨ Features
+
+### 🎓 Student Features
+
+| Feature | Description |
+|---------|-------------|
+| **User Registration** | Sign up with college email, roll number, hostel details |
+| **Today's Menu** | View all 4 meals (Breakfast, Lunch, Snacks, Dinner) for today |
+| **Weekly Menu** | Plan your week with 7-day menu calendar |
+| **Rate Meals** | Give 1-5 star ratings with optional text comments |
+| **My Ratings** | View, edit, or delete your past ratings |
+| **Digital Attendance** | Mark attendance for each meal with one click |
+| **Complaints Portal** | Submit complaints, view status, and track responses |
+| **Profile Management** | Update personal information and preferences |
+
+### 👨‍💼 Admin Features
+
+| Feature | Description |
+|---------|-------------|
+| **Admin Dashboard** | Overview of students, ratings, complaints, and trends |
+| **Menu Management** | Create/edit daily menus with drag-and-drop interface |
+| **Student Verification** | Approve or reject student registrations |
+| **Manage Students** | View all students, verify accounts, block users |
+| **View Ratings** | See all ratings with filters by meal, date, rating |
+| **Complaint Management** | Review complaints, update status, respond to students |
+| **Attendance Reports** | Generate meal-wise and date-wise attendance reports |
+| **Analytics** | View trends, average ratings, popular dishes |
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **React** | UI Library | 18.3.1 |
+| **Vite** | Build Tool & Dev Server | 5.4.21 |
+| **React Router** | Client-side Routing | 6.28.0 |
+| **Axios** | HTTP Client | 1.7.9 |
+| **Date-fns** | Date Manipulation | 4.1.0 |
+| **React Hot Toast** | Toast Notifications | 2.4.1 |
+| **React Icons** | Icon Library | 5.4.0 |
+| **CSS Modules** | Component-level Styling | Built-in |
+
+### Backend
+
+| Technology | Purpose | Version |
+|-----------|---------|---------|
+| **Node.js** | Runtime Environment | 18+ |
+| **Express** | Web Framework | 4.21.2 |
+| **Supabase** | PostgreSQL Database | Latest |
+| **JWT** | Authentication | 9.0.2 |
+| **Bcrypt** | Password Hashing | 5.1.1 |
+| **Cors** | Cross-Origin Requests | 2.8.5 |
+| **Dotenv** | Environment Variables | 16.4.7 |
+
+### Database Schema
+
+| Table | Fields | Purpose |
+|-------|--------|---------|
+| **students** | id, name, email, password, roll_number, hostel_name, room_number, phone_number, is_verified, created_at | Student accounts |
+| **admins** | id, name, email, password, role, created_at | Admin accounts |
+| **menus** | id, date, day, breakfast[], lunch[], snacks[], dinner[], created_at | Daily menus |
+| **ratings** | id, student_id, menu_id, meal_type, rating, comment, created_at | Meal ratings |
+| **attendance** | id, student_id, date, breakfast, lunch, snacks, dinner, created_at | Attendance records |
+| **complaints** | id, student_id, title, description, status, admin_response, created_at | Complaints |
+
+### DevOps & Deployment
+
+| Service | Purpose | URL |
+|---------|---------|-----|
+| **Vercel** | Frontend Hosting | [smartmesslms.vercel.app](https://smartmesslms.vercel.app) |
+| **Render** | Backend Hosting | [smartmess-backend.onrender.com](https://smartmess-backend.onrender.com) |
+| **Supabase** | PostgreSQL Database | Cloud-hosted |
+| **GitHub** | Version Control | [ggauravky/SmartMess](https://github.com/ggauravky/SmartMess) |
+| **Git** | Source Control | Latest |
+
+---
+
+## 🏗️ Architecture
+
+### System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         CLIENT SIDE                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐           │
-│  │   HTML5      │  │    CSS3      │  │  JavaScript  │           │
-│  │   Pages      │  │   Styling    │  │    Logic     │           │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘           │
-│         └─────────────────┼─────────────────┘                    │
-│                           │                                      │
-│                    ┌──────▼───────┐                              │
-│                    │  Bootstrap 5 │                              │
-│                    │  Responsive  │                              │
-│                    └──────┬───────┘                              │
-└───────────────────────────┼──────────────────────────────────────┘
-                            │ HTTP/REST API
-┌───────────────────────────┼──────────────────────────────────────┐
-│                     SERVER SIDE                                   │
-│                    ┌──────▼───────┐                              │
-│                    │   Express.js │                              │
-│                    │    Server    │                              │
-│                    └──────┬───────┘                              │
-│         ┌─────────────────┼─────────────────┐                    │
-│  ┌──────▼───────┐  ┌──────▼───────┐  ┌──────▼───────┐           │
-│  │   Routes     │  │  Controllers │  │  Middleware  │           │
-│  │   /api/*     │  │   Business   │  │  Auth/JWT    │           │
-│  └──────────────┘  └──────────────┘  └──────────────┘           │
-│                           │                                      │
-│                    ┌──────▼───────┐                              │
-│                    │   Mongoose   │                              │
-│                    │     ODM      │                              │
-│                    └──────┬───────┘                              │
-└───────────────────────────┼──────────────────────────────────────┘
-                            │
-┌───────────────────────────┼──────────────────────────────────────┐
-│                     DATABASE                                      │
-│                    ┌──────▼───────┐                              │
-│                    │   MongoDB    │                              │
-│                    │   Atlas      │                              │
-│                    └──────────────┘                              │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                         Client Layer                         │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │         React Frontend (Vite + React Router)            │ │
+│  │  • Student Dashboard  • Admin Dashboard  • Auth Pages   │ │
+│  └────────────────────────────────────────────────────────┘ │
+└────────────────────────┬────────────────────────────────────┘
+                         │ HTTPS/REST API
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      Application Layer                       │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │           Express.js Backend (Node.js)                  │ │
+│  │  • Auth Routes  • Menu Routes  • Rating Routes          │ │
+│  │  • JWT Middleware  • CORS Handler  • Error Handler      │ │
+│  └────────────────────────────────────────────────────────┘ │
+└────────────────────────┬────────────────────────────────────┘
+                         │ SQL Queries
+                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                         Data Layer                           │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │              Supabase PostgreSQL Database               │ │
+│  │  • Students  • Admins  • Menus  • Ratings               │ │
+│  │  • Attendance  • Complaints  • Notifications            │ │
+│  └────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" alt="Star" width="25" /> Features
-
-<div align="center">
-
-### 👤 User Features
-
-| Feature                | Description                                     | Status |
-| :--------------------- | :---------------------------------------------- | :----: |
-| 🔐 **Authentication**  | Secure signup/login with JWT tokens             |   ✅   |
-| 📅 **Meal Booking**    | Book meals in advance for any day               |   ✅   |
-| 🍽️ **Today's Menu**    | View daily menu with prices                     |   ✅   |
-| 📊 **Booking History** | Track all past meal bookings                    |   ✅   |
-| 🎫 **QR Tokens**       | Generate QR codes for meal verification         |   ✅   |
-| 💳 **Wallet System**   | Digital wallet for meal payments                |   ✅   |
-| 📱 **Responsive UI**   | Seamless experience on mobile & desktop         |   ✅   |
-| 🔔 **Notifications**   | Alerts for menu updates & booking confirmations |   ✅   |
-
-### 🛡️ Admin Features
-
-| Feature                    | Description                    | Status |
-| :------------------------- | :----------------------------- | :----: |
-| 📋 **Menu Management**     | Add, edit, delete menu items   |   ✅   |
-| 👥 **User Management**     | View & manage registered users |   ✅   |
-| 📈 **Analytics Dashboard** | Real-time stats & reports      |   ✅   |
-| 🧾 **Billing Reports**     | Generate financial reports     |   ✅   |
-| ✅ **Meal Verification**   | Scan QR to verify bookings     |   ✅   |
-| 📊 **Demand Prediction**   | View meal demand trends        |   ✅   |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Hammer%20and%20Wrench.png" alt="Tools" width="25" /> Tech Stack
-
-<div align="center">
-
-### Frontend Technologies
-
-| Technology       | Purpose                 | Badge                                                                                                                |
-| :--------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------- |
-| **React**        | UI Library              | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)                     |
-| **Vite**         | Build Tool & Dev Server | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)                        |
-| **React Router** | Client-side Routing     | ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=reactrouter&logoColor=white) |
-| **Tailwind CSS** | Utility-first CSS       | ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)     |
-| **Axios**        | HTTP Client             | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white)                     |
-
-### Backend Technologies
-
-| Technology     | Purpose               | Badge                                                                                                     |
-| :------------- | :-------------------- | :-------------------------------------------------------------------------------------------------------- |
-| **Node.js**    | Runtime Environment   | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)  |
-| **Express.js** | Web Framework         | ![Express](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white) |
-| **Supabase**   | Backend as a Service  | ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white) |
-| **JWT**        | Authentication Tokens | ![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)      |
-| **Bcrypt**     | Password Hashing      | ![Bcrypt](https://img.shields.io/badge/Bcrypt-003A70?style=flat-square&logo=letsencrypt&logoColor=white)  |
-
-### Deployment & Hosting
-
-| Platform     | Purpose          | Badge                                                                                                     |
-| :----------- | :--------------- | :-------------------------------------------------------------------------------------------------------- |
-| **Vercel**   | Frontend Hosting | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)       |
-| **Render**   | Backend Hosting  | ![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=white)       |
-| **Supabase** | Database Hosting | ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white) |
-
-### Development Tools
-
-| Tool        | Purpose            | Badge                                                                                                           |
-| :---------- | :----------------- | :-------------------------------------------------------------------------------------------------------------- |
-| **Git**     | Version Control    | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)                      |
-| **VS Code** | Code Editor        | ![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) |
-| **Postman** | API Testing        | ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white)          |
-| **npm**     | Package Manager    | ![npm](https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white)                      |
-| **Nodemon** | Development Server | ![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?style=flat-square&logo=nodemon&logoColor=white)          |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/File%20Folder.png" alt="Folder" width="25" /> Project Structure
+### Project Structure
 
 ```
-📦 SmartMess/
+SmartMess/
+├── frontend/                    # React Frontend
+│   ├── src/
+│   │   ├── components/         # Reusable UI Components
+│   │   │   ├── layout/         # Layout components (Navbar, Footer)
+│   │   │   └── ui/             # UI components (Button, Card, Modal)
+│   │   ├── pages/              # Page components
+│   │   │   ├── admin/          # Admin pages
+│   │   │   ├── Landing.jsx     # Landing page
+│   │   │   ├── Dashboard.jsx   # Student dashboard
+│   │   │   └── ...
+│   │   ├── context/            # React Context (Auth)
+│   │   ├── hooks/              # Custom React hooks
+│   │   ├── services/           # API service layer
+│   │   ├── styles/             # Global styles
+│   │   └── utils/              # Utility functions
+│   ├── public/                 # Static assets
+│   ├── package.json            # Frontend dependencies
+│   └── vite.config.js          # Vite configuration
 │
-├── 📁 frontend/                          # React Frontend Application
-│   │
-│   ├── 📁 src/                           # Source code
-│   │   │
-│   │   ├── 📁 components/                # Reusable React components
-│   │   │   ├── ⚛️ Navbar.jsx
-│   │   │   ├── ⚛️ Footer.jsx
-│   │   │   ├── ⚛️ Sidebar.jsx
-│   │   │   ├── ⚛️ Loader.jsx
-│   │   │   ├── ⚛️ Modal.jsx
-│   │   │   ├── ⚛️ Toast.jsx
-│   │   │   ├── ⚛️ MenuCard.jsx
-│   │   │   ├── ⚛️ BookingCard.jsx
-│   │   │   ├── ⚛️ QRCode.jsx
-│   │   │   └── ⚛️ ProtectedRoute.jsx
-│   │   │
-│   │   ├── 📁 pages/                     # Page components
-│   │   │   ├── ⚛️ Home.jsx
-│   │   │   ├── ⚛️ Login.jsx
-│   │   │   ├── ⚛️ Register.jsx
-│   │   │   ├── ⚛️ Dashboard.jsx
-│   │   │   ├── ⚛️ Menu.jsx
-│   │   │   ├── ⚛️ Booking.jsx
-│   │   │   ├── ⚛️ History.jsx
-│   │   │   ├── ⚛️ Profile.jsx
-│   │   │   ├── ⚛️ Wallet.jsx
-│   │   │   ├── ⚛️ AdminDashboard.jsx
-│   │   │   ├── ⚛️ ManageMenu.jsx
-│   │   │   ├── ⚛️ ManageUsers.jsx
-│   │   │   └── ⚛️ Reports.jsx
-│   │   │
-│   │   ├── 📁 services/                  # API service layer
-│   │   │   ├── ⚛️ api.js
-│   │   │   ├── ⚛️ authService.js
-│   │   │   ├── ⚛️ menuService.js
-│   │   │   ├── ⚛️ bookingService.js
-│   │   │   └── ⚛️ adminService.js
-│   │   │
-│   │   ├── 📁 context/                   # React Context providers
-│   │   │   ├── ⚛️ AuthContext.jsx
-│   │   │   └── ⚛️ ThemeContext.jsx
-│   │   │
-│   │   ├── ⚛️ App.jsx                    # Root component
-│   │   └── ⚛️ main.jsx                   # Entry point
-│   │
-│   └── 📄 package.json                   # Frontend dependencies
+├── backend/                    # Express Backend
+│   ├── src/
+│   │   ├── config/             # Configuration files
+│   │   │   └── database.js     # Supabase client
+│   │   ├── controllers/        # Route controllers
+│   │   │   ├── adminController.js
+│   │   │   └── studentController.js
+│   │   ├── models/             # Database models
+│   │   │   ├── Student.js
+│   │   │   ├── Menu.js
+│   │   │   └── Rating.js
+│   │   ├── routes/             # API routes
+│   │   │   ├── authRoutes.js
+│   │   │   ├── adminRoutes.js
+│   │   │   └── studentRoutes.js
+│   │   ├── scripts/            # Utility scripts
+│   │   │   └── createAdmin.js  # Admin creation script
+│   │   └── server.js           # Express server entry
+│   ├── .env                    # Environment variables
+│   ├── package.json            # Backend dependencies
+│   └── database_schema.sql     # Database schema
 │
-├── 📁 backend/                           # Node.js Backend Application
-│   │
-│   ├── 📁 src/                           # Source code
-│   │   │
-│   │   ├── 📁 controllers/               # Request handlers
-│   │   │   ├── 🎮 authController.js
-│   │   │   ├── 🎮 userController.js
-│   │   │   ├── 🎮 menuController.js
-│   │   │   ├── 🎮 bookingController.js
-│   │   │   └── 🎮 adminController.js
-│   │   │
-│   │   ├── 📁 routes/                    # API routes
-│   │   │   ├── 🛣️ authRoutes.js
-│   │   │   ├── 🛣️ userRoutes.js
-│   │   │   ├── 🛣️ menuRoutes.js
-│   │   │   ├── 🛣️ bookingRoutes.js
-│   │   │   ├── 🛣️ adminRoutes.js
-│   │   │   └── 🛣️ index.js
-│   │   │
-│   │   ├── 📁 config/                    # Configuration files
-│   │   │   ├── ⚙️ supabase.js
-│   │   │   └── ⚙️ jwt.js
-│   │   │
-│   │   └── 📄 server.js                  # Express app entry point
-│   │
-│   └── 📄 package.json                   # Backend dependencies
-│
-├── 📄 DEPLOYMENT.md                      # Deployment guide
-├── 📄 README.md                          # Project documentation
-├── 📄 LICENSE                            # MIT License
-└── 📄 .gitignore                         # Git ignore rules
-```
-
-### 📂 Folder Structure Breakdown
-
-<table>
-<tr>
-<td width="50%">
-
-#### 🔙 Backend (`/backend/src`)
-
-| Path            | Description              |
-| :-------------- | :----------------------- |
-| `/controllers/` | Request handlers         |
-| `/routes/`      | API endpoint definitions |
-| `/config/`      | Supabase & JWT config    |
-| `server.js`     | Express entry point      |
-
-</td>
-<td width="50%">
-
-#### ⚛️ Frontend (`/frontend/src`)
-
-| Path           | Description               |
-| :------------- | :------------------------ |
-| `/components/` | Reusable React components |
-| `/pages/`      | Page components           |
-| `/services/`   | API service layer         |
-| `/context/`    | React Context providers   |
-
-</td>
-</tr>
-</table>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Gear.png" alt="API" width="25" /> API Endpoints
-
-<div align="center">
-
-### 🔐 Authentication Routes `/api/auth`
-
-| Method | Endpoint           | Description       | Auth Required |
-| :----: | :----------------- | :---------------- | :-----------: |
-|  POST  | `/register`        | Register new user |      ❌       |
-|  POST  | `/login`           | User login        |      ❌       |
-|  POST  | `/logout`          | User logout       |      ✅       |
-|  POST  | `/forgot-password` | Password reset    |      ❌       |
-
-### 👤 User Routes `/api/users`
-
-| Method | Endpoint      | Description         | Auth Required |
-| :----: | :------------ | :------------------ | :-----------: |
-|  GET   | `/profile`    | Get user profile    |      ✅       |
-|  PUT   | `/profile`    | Update profile      |      ✅       |
-|  GET   | `/wallet`     | Get wallet balance  |      ✅       |
-|  POST  | `/wallet/add` | Add money to wallet |      ✅       |
-
-### 🍽️ Menu Routes `/api/menu`
-
-| Method | Endpoint | Description           | Auth Required |
-| :----: | :------- | :-------------------- | :-----------: |
-|  GET   | `/`      | Get all menu items    |      ❌       |
-|  GET   | `/today` | Get today's menu      |      ❌       |
-|  GET   | `/:id`   | Get menu item by ID   |      ❌       |
-|  POST  | `/`      | Add menu item (Admin) |   ✅ Admin    |
-|  PUT   | `/:id`   | Update menu item      |   ✅ Admin    |
-| DELETE | `/:id`   | Delete menu item      |   ✅ Admin    |
-
-### 📅 Booking Routes `/api/bookings`
-
-| Method | Endpoint      | Description         | Auth Required |
-| :----: | :------------ | :------------------ | :-----------: |
-|  GET   | `/`           | Get user bookings   |      ✅       |
-|  POST  | `/`           | Create new booking  |      ✅       |
-|  GET   | `/:id`        | Get booking details |      ✅       |
-|  PUT   | `/:id/cancel` | Cancel booking      |      ✅       |
-|  GET   | `/:id/qr`     | Get QR code         |      ✅       |
-
-### 🛡️ Admin Routes `/api/admin`
-
-| Method | Endpoint             | Description         | Auth Required |
-| :----: | :------------------- | :------------------ | :-----------: |
-|  GET   | `/dashboard`         | Get dashboard stats |   ✅ Admin    |
-|  GET   | `/users`             | Get all users       |   ✅ Admin    |
-|  GET   | `/bookings`          | Get all bookings    |   ✅ Admin    |
-|  POST  | `/verify/:bookingId` | Verify meal booking |   ✅ Admin    |
-|  GET   | `/reports`           | Generate reports    |   ✅ Admin    |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Card%20File%20Box.png" alt="Database" width="25" /> Database Schema (Supabase)
-
-```sql
--- Users Table
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  phone VARCHAR(15),
-  role VARCHAR(10) DEFAULT 'user' CHECK (role IN ('user', 'admin')),
-  wallet_balance DECIMAL(10,2) DEFAULT 0.00,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Menu Table
-CREATE TABLE menu (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(100) NOT NULL,
-  description TEXT,
-  price DECIMAL(10,2) NOT NULL,
-  category VARCHAR(20) CHECK (category IN ('breakfast', 'lunch', 'dinner', 'snacks')),
-  image_url TEXT,
-  is_available BOOLEAN DEFAULT true,
-  day VARCHAR(15),
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Bookings Table
-CREATE TABLE bookings (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  meal_type VARCHAR(20),
-  booking_date DATE NOT NULL,
-  total_amount DECIMAL(10,2) NOT NULL,
-  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'completed', 'cancelled')),
-  qr_code TEXT,
-  is_verified BOOLEAN DEFAULT false,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Booking Items Table
-CREATE TABLE booking_items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  booking_id UUID REFERENCES bookings(id) ON DELETE CASCADE,
-  menu_id UUID REFERENCES menu(id),
-  quantity INTEGER DEFAULT 1
-);
+├── .gitignore                  # Git ignore file
+├── DEPLOYMENT.md               # Deployment guide
+└── README.md                   # This file
 ```
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Rocket.png" alt="Rocket" width="25" /> Getting Started
+## 🚀 Installation
 
 ### Prerequisites
 
+Before you begin, ensure you have the following installed:
+- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
+- **npm** or **yarn** - Comes with Node.js
+- **Git** - [Download](https://git-scm.com/)
+- **Supabase Account** - [Sign up](https://supabase.com/)
+
+### Step 1: Clone the Repository
+
 ```bash
-✅ Node.js (v18 or higher)
-✅ Supabase Account
-✅ Git
-✅ npm or yarn
+git clone https://github.com/ggauravky/SmartMess.git
+cd SmartMess
 ```
 
-### Installation
+### Step 2: Setup Backend
+
+#### 2.1 Install Backend Dependencies
 
 ```bash
-# 📥 Clone the repository
-git clone https://github.com/nikhilxagr/SmartMess.git
-
-# 📂 Navigate to project directory
-cd SmartMess
-
-# 📦 Install backend dependencies
 cd backend
 npm install
-
-# ⚙️ Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# 🚀 Run the backend server
-npm run dev
-
-# 📦 Install frontend dependencies (in a new terminal)
-cd ../frontend
-npm install
-
-# 🚀 Run the frontend development server
-npm run dev
 ```
 
-### Environment Variables
+#### 2.2 Create Supabase Project
 
-#### Backend (.env)
+1. Go to [Supabase Dashboard](https://app.supabase.com/)
+2. Create a new project
+3. Go to **Project Settings** → **API**
+4. Copy your **Project URL** and **anon/public key**
+
+#### 2.3 Create Database Tables
+
+Run the SQL schema from `backend/database_schema.sql` in Supabase SQL Editor:
+
+```sql
+-- Copy contents from backend/database_schema.sql and run in Supabase
+```
+
+#### 2.4 Configure Environment Variables
+
+Create `.env` file in `backend/` directory:
 
 ```env
 # Server Configuration
@@ -480,151 +299,371 @@ PORT=5000
 NODE_ENV=development
 
 # Supabase Configuration
-SUPABASE_URL=your_supabase_project_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_KEY=your_supabase_service_key
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key-here
 
 # JWT Configuration
-JWT_SECRET=your_super_secret_key_here
-JWT_EXPIRE=7d
+JWT_SECRET=your_super_secret_jwt_key_here_change_in_production
+JWT_EXPIRES_IN=7d
 
-# Admin Credentials
-ADMIN_EMAIL=admin@smartmess.com
-ADMIN_PASSWORD=admin123
+# Frontend URL (for CORS)
+FRONTEND_URL=http://localhost:3000
+
+# Admin Credentials (for createAdmin.js script)
+ADMIN_NAME=Admin User
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=your_secure_password
+ADMIN_PHONE=0000000000
+ADMIN_ROLE=superadmin
 ```
 
-#### Frontend (.env)
+#### 2.5 Create Admin Account
+
+```bash
+npm run create-admin
+```
+
+#### 2.6 Start Backend Server
+
+```bash
+npm run dev
+```
+
+Backend will run on `http://localhost:5000`
+
+### Step 3: Setup Frontend
+
+#### 3.1 Install Frontend Dependencies
+
+Open a new terminal:
+
+```bash
+cd frontend
+npm install
+```
+
+#### 3.2 Configure Environment Variables
+
+Create `.env` file in `frontend/` directory:
 
 ```env
 VITE_API_URL=http://localhost:5000/api
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### 🚀 Deployment
+#### 3.3 Start Frontend Development Server
 
-| Platform   | Purpose          | Deploy Command                   |
-| :--------- | :--------------- | :------------------------------- |
-| **Vercel** | Frontend Hosting | `vercel --prod` (from /frontend) |
-| **Render** | Backend Hosting  | Connect GitHub repo to Render    |
+```bash
+npm run dev
+```
+
+Frontend will run on `http://localhost:3000` (or next available port)
+
+### Step 4: Access the Application
+
+- **Frontend**: Open [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+
+### Default Admin Credentials
+
+Use the credentials you set in `backend/.env` file:
+- **Email**: Value of `ADMIN_EMAIL`
+- **Password**: Value of `ADMIN_PASSWORD`
+- **Login URL**: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Camera%20with%20Flash.png" alt="Screenshots" width="25" /> Screenshots
+## 📖 Usage
+
+### For Students
+
+1. **Register**: Go to landing page → Click "Sign Up" → Fill registration form
+2. **Wait for Approval**: Admin needs to verify your account
+3. **Login**: Once approved, login with your credentials
+4. **View Menu**: Check today's or weekly menu
+5. **Mark Attendance**: Click attendance button for each meal
+6. **Rate Meals**: Rate after eating, give 1-5 stars with comments
+7. **Submit Complaints**: Go to Complaints page → Submit new complaint
+
+### For Admins
+
+1. **Login**: Go to `/admin/login` → Enter admin credentials
+2. **Verify Students**: Dashboard → Manage Students → Verify pending registrations
+3. **Create Menu**: Manage Menu → Select date → Add items for each meal
+4. **View Ratings**: View Ratings → Filter by date, meal type, or rating
+5. **Handle Complaints**: Complaints → Update status → Add response
+6. **View Analytics**: Dashboard shows overview of all activities
+
+---
+
+## 🔌 API Documentation
+
+### Base URL
+
+- **Development**: `http://localhost:5000/api`
+- **Production**: `https://smartmess-backend.onrender.com/api`
+
+### Authentication
+
+All protected routes require JWT token in header:
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+### Endpoints
+
+#### Authentication Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/auth/register` | Student registration | No |
+| POST | `/auth/login` | Student login | No |
+| POST | `/auth/logout` | Student logout | Yes |
+| POST | `/admin/login` | Admin login | No |
+| GET | `/auth/me` | Get current user | Yes |
+
+#### Menu Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/menus/today` | Get today's menu | Yes |
+| GET | `/menus/weekly` | Get weekly menu | Yes |
+| GET | `/menus/date/:date` | Get menu by date | Yes |
+| POST | `/admin/menus` | Create/update menu | Admin |
+| DELETE | `/admin/menus/:id` | Delete menu | Admin |
+
+#### Rating Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/ratings/my-ratings` | Get user's ratings | Yes |
+| POST | `/ratings` | Create rating | Yes |
+| PUT | `/ratings/:id` | Update rating | Yes |
+| DELETE | `/ratings/:id` | Delete rating | Yes |
+| GET | `/admin/ratings` | Get all ratings | Admin |
+
+#### Student Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/admin/students` | Get all students | Admin |
+| PUT | `/admin/students/:id/verify` | Verify student | Admin |
+| DELETE | `/admin/students/:id` | Delete student | Admin |
+
+#### Attendance Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/attendance/today` | Get today's attendance | Yes |
+| POST | `/attendance` | Mark attendance | Yes |
+| GET | `/admin/attendance` | Get all attendance | Admin |
+
+#### Complaint Routes
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/complaints` | Get user complaints | Yes |
+| POST | `/complaints` | Create complaint | Yes |
+| PUT | `/complaints/:id` | Update complaint | Yes |
+| GET | `/admin/complaints` | Get all complaints | Admin |
+| PUT | `/admin/complaints/:id` | Update complaint status | Admin |
+
+### Sample API Requests
+
+#### Register Student
+
+```bash
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepass123",
+  "rollNumber": "21CS001",
+  "hostelName": "Hostel A",
+  "roomNumber": "A-101",
+  "phoneNumber": "9876543210"
+}
+```
+
+#### Get Today's Menu
+
+```bash
+GET /api/menus/today
+Authorization: Bearer <token>
+```
+
+#### Rate a Meal
+
+```bash
+POST /api/ratings
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "menuId": "menu-uuid",
+  "mealType": "lunch",
+  "rating": 4,
+  "comment": "Good taste, nice quantity"
+}
+```
+
+---
+
+## 📸 Screenshots
+
+### Landing Page
+Beautiful, modern landing page with features, testimonials, and FAQ
+
+### Student Dashboard
+Clean dashboard showing today's menu, quick stats, and quick actions
+
+### Today's Menu
+View all 4 meals with ratings and ability to rate each meal
+
+### Admin Dashboard
+Comprehensive overview of students, ratings, complaints, and analytics
+
+### Menu Management
+Easy-to-use interface for creating and managing daily menus
+
+### Rating Management
+View all ratings with filters, search, and sorting options
+
+---
+
+## 🌐 Deployment
+
+The application is deployed and live at:
+
+- **Frontend**: [https://smartmesslms.vercel.app](https://smartmesslms.vercel.app)
+- **Backend**: [https://smartmess-backend.onrender.com](https://smartmess-backend.onrender.com)
+
+### Deployment Configuration
+
+#### Frontend (Vercel)
+
+```json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "env": {
+    "VITE_API_URL": "https://smartmess-backend.onrender.com/api"
+  }
+}
+```
+
+#### Backend (Render)
+
+```yaml
+services:
+  - type: web
+    name: smartmess-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. **Fork the Repository**
+   ```bash
+   git clone https://github.com/your-username/SmartMess.git
+   ```
+
+2. **Create Feature Branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+
+3. **Commit Changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+
+4. **Push to Branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+
+5. **Open Pull Request**
+
+### Coding Standards
+
+- Use ES6+ features
+- Follow React best practices
+- Write meaningful commit messages
+- Add comments for complex logic
+- Update documentation for new features
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+**Gaurav Kumar**
+
+- GitHub: [@ggauravky](https://github.com/ggauravky)
+- Email: gkumaryadav526@gmail.com
+- LinkedIn: [Gaurav Kumar](https://linkedin.com/in/ggauravky)
+
+---
+
+## 🙏 Acknowledgments
+
+- [React](https://reactjs.org/) - Frontend library
+- [Express](https://expressjs.com/) - Backend framework
+- [Supabase](https://supabase.com/) - Database and authentication
+- [Vercel](https://vercel.com/) - Frontend hosting
+- [Render](https://render.com/) - Backend hosting
+- [React Icons](https://react-icons.github.io/react-icons/) - Icon library
+
+---
+
+## 📞 Support
+
+For support, email gkumaryadav526@gmail.com or create an issue in the repository.
+
+---
+
+## 🔮 Future Enhancements
+
+- [ ] Mobile app (React Native)
+- [ ] WhatsApp notifications
+- [ ] Email notifications
+- [ ] Payment integration for mess bills
+- [ ] Multi-language support
+- [ ] Dark mode
+- [ ] Export reports to PDF/Excel
+- [ ] Push notifications
+- [ ] Menu suggestions based on ratings
+- [ ] Nutritional information
+- [ ] Allergen warnings
+- [ ] QR code for attendance
+
+---
 
 <div align="center">
 
-|                           Landing Page                            |                            User Dashboard                             |
-| :---------------------------------------------------------------: | :-------------------------------------------------------------------: |
-| ![Landing](https://via.placeholder.com/400x250?text=Landing+Page) | ![Dashboard](https://via.placeholder.com/400x250?text=User+Dashboard) |
+**Made with ❤️ for better campus dining**
 
-|                          Menu Page                          |                           Booking Page                            |
-| :---------------------------------------------------------: | :---------------------------------------------------------------: |
-| ![Menu](https://via.placeholder.com/400x250?text=Menu+Page) | ![Booking](https://via.placeholder.com/400x250?text=Booking+Page) |
-
-|                          Admin Dashboard                           |                         QR Verification                         |
-| :----------------------------------------------------------------: | :-------------------------------------------------------------: |
-| ![Admin](https://via.placeholder.com/400x250?text=Admin+Dashboard) | ![QR](https://via.placeholder.com/400x250?text=QR+Verification) |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Busts%20in%20Silhouette.png" alt="Team" width="25" /> Team Code Crafters
-
-<div align="center">
-
-<table>
-<tr>
-<td align="center">
-<img src="https://github.com/nikhilxagr.png" width="120" height="120" style="border-radius:50%"/>
-<br/>
-<strong>Nikhil Agrahari</strong>
-<br/>
-<sub>Full Stack Developer</sub>
-<br/>
-<a href="https://github.com/nikhilxagr">
-<img src="https://img.shields.io/badge/GitHub-nikhilxagr-181717?style=for-the-badge&logo=github" alt="GitHub"/>
-</a>
-</td>
-<td align="center">
-<img src="https://github.com/ggauravky.png" width="120" height="120" style="border-radius:50%"/>
-<br/>
-<strong>Gaurav Kumar Yadav</strong>
-<br/>
-<sub>Backend Developer</sub>
-<br/>
-<a href="https://github.com/ggauravky">
-<img src="https://img.shields.io/badge/GitHub-ggauravky-181717?style=for-the-badge&logo=github" alt="GitHub"/>
-</a>
-</td>
-<td align="center">
-<img src="https://github.com/ydevansh.png" width="120" height="120" style="border-radius:50%"/>
-<br/>
-<strong>Devansh Yadav</strong>
-<br/>
-<sub>Frontend Developer</sub>
-<br/>
-<a href="https://github.com/ydevansh">
-<img src="https://img.shields.io/badge/GitHub-ydevansh-181717?style=for-the-badge&logo=github" alt="GitHub"/>
-</a>
-</td>
-</tr>
-</table>
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Handshake.png" alt="Handshake" width="25" /> Community & Collaboration Partners
-
-<div align="center">
-
-|                                                                  Partner                                                                   |                                                                                    Link                                                                                     |
-| :----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                🛡️ **Cyber Intelligence Community Lucknow**                                                 | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/company/cyber-intelligence-community-lucknow/) |
-|                                                            🤖 **AiCyber.Guru**                                                             |                         [![Website](https://img.shields.io/badge/Website-Visit-00C853?style=flat-square&logo=google-chrome)](https://aicyber.guru/)                         |
-|                                                           🧠 **Lucknow AI Labs**                                                           |                      [![Website](https://img.shields.io/badge/Website-Visit-00C853?style=flat-square&logo=google-chrome)](https://lucknowailabs.com/)                       |
-| <img src="https://img.shields.io/badge/Google-4285F4?style=flat-square&logo=google&logoColor=white" alt="GDG"> **Google Developers Group** |                        [![Community](https://img.shields.io/badge/Community-Join-4285F4?style=flat-square&logo=google)](https://gdg.community.dev/)                         |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Crystal%20Ball.png" alt="Crystal Ball" width="25" /> Future Scope
-
-<div align="center">
-
-| 🔮 Upcoming Features                     | Priority |
-| :--------------------------------------- | :------: |
-| 📲 Mobile app development (React Native) |   High   |
-| 🤖 AI-based meal recommendation system   |  Medium  |
-| 📈 Predictive analytics for food demand  |  Medium  |
-| 🔔 Push notifications for menu updates   |   High   |
-| 💬 In-app feedback & chat support        |   Low    |
-| 🏷️ NFC-based meal scanning               |  Medium  |
-| 📊 Advanced reporting with charts        |   High   |
-| 🌐 Multi-language support                |   Low    |
-
-</div>
-
----
-
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Page%20with%20Curl.png" alt="License" width="25" /> License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=0:FF6B35,100:F7C815&height=120&section=footer)
-
-### Made with 💻 & ☕ by **Team Code Crafters**
-
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Star.png" alt="Star" width="20" /> Star this repo if you find it helpful!
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
+⭐ Star this repo if you find it helpful!
 
 </div>
